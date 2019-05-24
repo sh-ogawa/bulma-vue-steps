@@ -1,6 +1,8 @@
 <template>
-  <div class="step-content has-text-centered is-active">
-    <slot :step-index="stepIndex" />
+  <div v-show="isActive">
+    <div class="step-content has-text-centered is-active">
+      <slot />
+    </div>
   </div>
 </template>
 <script>
@@ -14,12 +16,23 @@ export default {
   },
   data() {
     return {
-      stepIndex: 0,
+      isActive: false,
     };
   },
   created() {
     this.$parent.stepItems.push(this);
-    this.stepIndex = this.$parent.stepItems.length - 1;
+  },
+  methods: {
+    activate() {
+      this.isActive = true;
+    },
+
+    /**
+     * Deactivate tab, alter animation name based on the index.
+     */
+    deactivate() {
+      this.isActive = false;
+    },
   },
 };
 </script>

@@ -6,7 +6,7 @@
       >
         <div class="step-marker">{{ index + 1 }}</div>
         <div class="step-details">
-          <p class="step-title">{{ stepItem.lable }}</p>
+          <p class="step-title">{{ stepItem.label }}</p>
         </div>
       </div>
       <section class="steps-content">
@@ -50,6 +50,7 @@ export default {
   data() {
     return {
       newStep: this.value,
+      // Stepが追加してくる
       stepItems: [],
     };
   },
@@ -68,7 +69,27 @@ export default {
     },
   },
   watch: {
+    stepItems: {
+      // deep watchしてないから初回の一発目だけ呼ばれる
+      // ちなみにdeep watchして中のフラグ書き換えると無限ループするから、やったらダメ
+      handler() {
+        this.stepItems.forEach((item, index) => {
+          if (this.newStep === index) {
+            item.activate();
+          } else {
+            item.deactivate();
+          }
+        });
+      },
+    },
     newStep(value) {
+      this.stepItems.forEach((item, index) => {
+        if (value === index) {
+          item.activate();
+        } else {
+          item.deactivate();
+        }
+      });
       this.$emit('input', value);
     },
   },

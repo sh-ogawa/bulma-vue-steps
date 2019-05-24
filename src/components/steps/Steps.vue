@@ -10,7 +10,7 @@
         </div>
       </div>
       <section class="steps-content">
-        <slot :is-active="newStep === 1" />
+        <slot />
       </section>
 
       <div class="steps-actions">
@@ -62,7 +62,7 @@ export default {
       }
     },
     nextStep() {
-      if (this.newStep < this.stepItems.length) {
+      if (this.newStep < this.stepItems.length - 1) {
         this.newStep += 1;
       }
     },

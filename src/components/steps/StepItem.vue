@@ -1,6 +1,6 @@
 <template>
-  <div class="step-content has-text-centered" :class="'is-active'">
-    hoge
+  <div class="step-content has-text-centered is-active">
+    <slot :step-index="stepIndex" />
   </div>
 </template>
 <script>
@@ -12,8 +12,14 @@ export default {
       default: '',
     },
   },
+  data() {
+    return {
+      stepIndex: 0,
+    };
+  },
   created() {
     this.$parent.stepItems.push(this);
+    this.stepIndex = this.$parent.stepItems.length - 1;
   },
 };
 </script>

@@ -2,38 +2,46 @@
     <section>
       <steps v-model="newStep">
         <step-item :label="'test1'">
-          <div class="field is-horizontal">
-            <div class="field-label is-normal">
-              <label class="label">Username</label>
-            </div>
-            <div class="field-body">
-              <div class="field">
-                <div class="control">
-                  <input class="input"
-                         name="username"
-                         id="username"
-                         type="text"
-                         placeholder="Username"
-                         autofocus data-validate="require">
+          <div slot-scope="{ stepIndex }">
+            <div v-show="stepIndex === newStep">
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">Username</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <div class="control">
+                      <input class="input"
+                             name="username"
+                             id="username"
+                             type="text"
+                             placeholder="Username"
+                             autofocus data-validate="require">
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </step-item>
         <step-item :label="'test2'">
-          <div class="field is-horizontal">
-            <div class="field-label is-normal">
-              <label class="label">Password</label>
-            </div>
-            <div class="field-body">
-              <div class="field">
-                <div class="control has-icon has-icon-right">
-                  <input class="input"
-                         type="password"
-                         name="password"
-                         id="password"
-                         placeholder="Password"
-                         data-validate="require">
+          <div slot-scope="{ stepIndex }">
+            <div v-show="stepIndex === newStep">
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">Password</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <div class="control has-icon has-icon-right">
+                      <input class="input"
+                             type="password"
+                             name="password"
+                             id="password"
+                             placeholder="Password"
+                             data-validate="require">
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

@@ -95,22 +95,7 @@ export default {
         await this.lastStepNextHandler();
       }
     },
-  },
-  watch: {
-    stepItems: {
-      // deep watchしてないから初回の一発目だけ呼ばれる
-      // ちなみにdeep watchして中のフラグ書き換えると無限ループするから、やったらダメ
-      handler() {
-        this.stepItems.forEach((item, index) => {
-          if (this.newStep === index) {
-            item.activate();
-          } else {
-            item.deactivate();
-          }
-        });
-      },
-    },
-    newStep(value) {
+    switchSteps(value) {
       this.stepItems.forEach((item, index) => {
         if (value === index) {
           item.activate();
@@ -118,6 +103,18 @@ export default {
           item.deactivate();
         }
       });
+    },
+  },
+  watch: {
+    stepItems: {
+      // deep watchしてないから初回の一発目だけ呼ばれる
+      // ちなみにdeep watchして中のフラグ書き換えると無限ループするから、やったらダメ
+      handler() {
+        this.switchSteps(this.newStep);
+      },
+    },
+    newStep(value) {
+      this.switchSteps(value);
       this.$emit('input', value);
     },
   },

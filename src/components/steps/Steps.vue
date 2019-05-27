@@ -16,11 +16,13 @@
       <div class="steps-actions">
         <div class="steps-action">
           <button type="button" class="button is-light"
-                  @click="previousStep">{{ previousText }}</button>
+                  :disabled="disabledPreviousAction"
+                  @click="previousStep">{{ previousButtonText }}</button>
         </div>
         <div class="steps-action">
           <button type="button" class="button is-light"
-                  @click="nextStep">{{ nextText }}</button>
+                  :disabled="disabledNextAction"
+                  @click="nextStep">{{ nextButtonText }}</button>
         </div>
       </div>
     </div>
@@ -46,6 +48,22 @@ export default {
       type: String,
       default: 'Next',
     },
+    disabledPreviousAction: {
+      type: Boolean,
+      default: false,
+    },
+    disabledNextAction: {
+      type: Boolean,
+      default: false,
+    },
+    firstStepPreviousHandler: {
+      type: Function,
+      required: true,
+    },
+    lastStepNextHandler: {
+      type: Function,
+      required: true,
+    },
   },
   data() {
     return {
@@ -55,16 +73,26 @@ export default {
     };
   },
   computed: {
+    previousButtonText() {
+      return this.newStep > 0 ? this.previousText : 'back';
+    },
+    nextButtonText() {
+      return this.newStep < this.stepItems.length - 1 ? this.nextText : 'finish';
+    },
   },
   methods: {
-    previousStep() {
+    async previousStep() {
       if (this.newStep > 0) {
         this.newStep -= 1;
+      } else {
+        await this.firstStepPreviousHandler();
       }
     },
-    nextStep() {
+    async nextStep() {
       if (this.newStep < this.stepItems.length - 1) {
         this.newStep += 1;
+      } else {
+        await this.lastStepNextHandler();
       }
     },
   },

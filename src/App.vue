@@ -1,6 +1,12 @@
 <template>
     <section>
-      <steps v-model="newStep">
+      <steps
+        v-model="newStep"
+        :first-step-previous-handler="firstPreviousAction"
+        :last-step-next-handler="lastNextAction"
+        :disabled-previous-action="disabledAction"
+        :disabled-next-action="disabledAction"
+      >
         <step-item :label="'test1'">
           <div class="field is-horizontal">
             <div class="field-label is-normal">
@@ -47,6 +53,7 @@
 import Steps from '@/components/steps/Steps';
 import StepItem from '@/components/steps/StepItem';
 
+// Example of how to use step component
 export default {
   name: 'App',
   components: { StepItem, Steps },
@@ -54,6 +61,19 @@ export default {
     return {
       newStep: 0,
     };
+  },
+  computed: {
+    disabledAction() {
+      return false;
+    },
+  },
+  methods: {
+    firstPreviousAction() {
+      alert('click previous button at first step');
+    },
+    lastNextAction() {
+      alert('click next button at last step');
+    },
   },
 };
 </script>

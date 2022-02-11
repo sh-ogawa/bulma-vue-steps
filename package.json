@@ -15,7 +15,7 @@
   "dependencies": {
     "bulma": "^0.7.5",
     "bulma-steps": "^2.2.1",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "sass-loader": "^7.1.0",
     "vue": "^2.5.2"
   },
